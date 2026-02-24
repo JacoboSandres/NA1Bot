@@ -1,6 +1,6 @@
 # Panel.NA1 自动挂机 - HuggingFace 部署指南
 
-> ⭐ **觉得有用？给个 Star 支持一下！**
+# ⭐ **觉得有用？给个 Star 支持一下！**
 
 在 Hugging Face 免费部署自动挂机程序，持续赚取 [Panel.NA1](https://panel.na1.host) 金币。
 
@@ -180,4 +180,5 @@ NA1 金币可兑换服务器资源，详见 [NA1 官网](https://panel.na1.host)
 
 
 本项目仅供学习交流，请遵守 [panel.na1.host](https://panel.na1.host) 服务条款。使用本程序产生的任何后果由用户自行承担。
+
 
